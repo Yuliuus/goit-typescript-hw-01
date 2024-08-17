@@ -1,5 +1,5 @@
 // У вас є тип AllType. Існує функція compare, яка приймає два об'єкти. Ці об'єкти містять поля AllType.
-// Ваше завдання – використовувати Pick та generics для вказівки, що поля цих параметрів належать AllType.
+// Ваше завдання – використовувати //*Pick та generics для вказівки, що поля цих параметрів належать AllType.
 // Функція compare повинна повертати AllType.
 
 type AllType = {
@@ -9,7 +9,10 @@ type AllType = {
   weight: number;
 };
 
-function compare<T extends AllType>(top: T, bottom: T): AllType {
+function compare(
+  top: Pick<AllType, "name" | "color">,
+  bottom: Pick<AllType, "position" | "weight">
+): AllType {
   return {
     name: top.name,
     color: top.color,
@@ -18,8 +21,8 @@ function compare<T extends AllType>(top: T, bottom: T): AllType {
   };
 }
 const person = compare(
-  { name: "Paul", position: 35, color: "blue", weight: 75 },
-  { name: "Juli", position: 35, color: "green", weight: 65 }
+  { name: "Juli", color: "blue" },
+  { position: 25, weight: 65 }
 );
 
 console.log(person);
